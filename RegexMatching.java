@@ -32,7 +32,7 @@ public class RegexMatching{
         PrintWriter pw = new PrintWriter(new FileWriter("out"));
         for(String line = in.readLine();line != null; line = in.readLine()){
             String sp[] = line.split(" ");
-            pw.println(isMatchDP(sp[0], sp[1]));
+            pw.println(isMatch(sp[0], sp[1]));
         }
         in.close(); pw.close();
     }
