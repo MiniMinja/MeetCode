@@ -25,23 +25,44 @@ def check_problem(problem):
             print('All Good!')
         else:
             print('{} number of errors! See output above!'.format(error_count))
-    
 
+def print_range(start, end, list, msg):
+    print(msg)
+    for val in list[start:end]:
+        print('{:>30}'.format(val))
 
-num = input('What problem do you want to work on? ')
-try:
-    num = int(num)
-except ValueError:
-    print('You must enter an integer!')
-    exit()
+def get_input(problems):
+    msg = 'What problem do you want to work on?\n(#/n for next/p for previous): ' 
+
+    dx = 5
+    start = 0
+    end = dx
+    print_range(start, end, problems, "Index....")
+    val = input(msg)
+    while True:
+        try:
+            val = int(val)
+            return val
+        except ValueError:
+            if val == 'n':
+                start += dx
+            elif val == 'p':
+                start -= dx
+            else:
+                print('Input Error. Try again.')
+        if start >= len(problems):
+            start = 0
+        if start < 0:
+            start = len(problems) - 5
+        end = start + dx
+        print_range(start, end, problems, "Index....")
+        val = input(msg)
 
 with open("files.txt") as f:
     print("Opening our problem index...")
     problems = f.read().split('\n')
 
-    print("Index...")
-    for problem in problems:
-        print('{:>30}'.format(problem))
+    num = get_input(problems) 
 
     print('Looking for number {}'.format(num))
     for problem in problems:
